@@ -1,0 +1,81 @@
+#define n1 8
+#define n2 9
+#define n3 10
+#define n4 11
+#define ena 5
+#define enb 6
+#define ir1 A0
+#define ir2 A1
+#define ir3 A2
+void setup() {
+    pinMode(n1,OUTPUT);
+    pinMode(n2,OUTPUT);
+    pinMode(n3,OUTPUT);
+    pinMode(n4,OUTPUT);
+    pinMode(ena,OUTPUT);
+    pinMode(enb,OUTPUT);
+  pinMode(ir1,INPUT);
+  pinMode(ir2,INPUT);
+  pinMode(ir3,INPUT);
+}
+void loop() {
+  int s1 = digitalRead(ir1);
+  int s2 = digitalRead(ir2);
+  int s3 = digitalRead(ir3);
+  if(s1==0&s2==1&s3==0){
+    FWD(75,75);
+  }
+  if(s1==0&s2==0&s3==0){
+    FWD(75,75);
+  }
+  
+  if((s1==1&s2==0&s3==0)||(s1==1&s2==1&s3==0)){
+   R(155,155);
+   delay(105);
+  }
+  if((s1==0&s2==0&s3==1)||(s1==0&s2==1&s3==1)){
+    L(155,155);
+    delay(105);
+  }
+  if(s1==1&s2==1&s3==1){
+  Stop();
+}
+}
+void FWD(int ENA,int ENB){
+  analogWrite(ena,ENA);
+  analogWrite(enb,ENB);
+  digitalWrite(n1,1);
+  digitalWrite(n2,0);
+  digitalWrite(n3,0);
+  digitalWrite(n4,1);
+}
+void R(int ENA,int ENB){
+  analogWrite(ena,ENA);
+  analogWrite(enb,ENB);
+  digitalWrite(n1,0);
+  digitalWrite(n2,1);
+  digitalWrite(n3,0);
+  digitalWrite(n4,1);
+}
+void L(int ENA,int ENB){
+  analogWrite(ena,ENA);
+  analogWrite(enb,ENB);
+  digitalWrite(n1,1);
+  digitalWrite(n2,0);
+  digitalWrite(n3,1);
+  digitalWrite(n4,0);
+}
+void Back(int ENA,int ENB){
+  analogWrite(ena,ENA);
+  analogWrite(enb,ENB);
+  digitalWrite(n1,0);
+  digitalWrite(n2,1);
+  digitalWrite(n3,1);
+  digitalWrite(n4,0);
+}
+void Stop(){
+  digitalWrite(n1,0);
+  digitalWrite(n2,0);
+  digitalWrite(n3,0);
+  digitalWrite(n4,0);
+}
